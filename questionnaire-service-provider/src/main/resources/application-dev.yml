@@ -23,3 +23,11 @@ mybatis-plus:
   mapper-locations: classpath:mapper/*Mapper.xml
 
 
+wx:
+  appId: 0
+  appSecret: 0
+  login:
+    url: https://api.weixin.qq.com/sns/jscode2session
+
+
+
