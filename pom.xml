@@ -12,15 +12,20 @@
     <groupId>org.example</groupId>
     <artifactId>advanced_questionnaire</artifactId>
     <version>1.0-SNAPSHOT</version>
-
-
+    <packaging>pom</packaging>
 
     <properties>
         <swagger-version>2.9.2</swagger-version>
+        <elasticsearch.version>7.6.2</elasticsearch.version>
+        <spring-data.version>3.2.6.RELEASE</spring-data.version>
+        <springboot.version>2.2.6.RELEASE</springboot.version>
+        <mybatisplus.version>3.3.1</mybatisplus.version>
+        <mysql.driver.version>8.0.20</mysql.driver.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <!--Swagger-->
             <dependency>
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger2</artifactId>
@@ -31,6 +36,35 @@
                 <artifactId>springfox-swagger-ui</artifactId>
                 <version>${swagger-version}</version>
             </dependency>
+
+            <!--ElasticSearch-->
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-elasticsearch</artifactId>
+                <version>${spring-data.version}</version>
+            </dependency>
+
+            <!--Redis-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <version>${springboot.version}</version>
+            </dependency>
+
+            <!--MybatisPlus-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatisplus.version}</version>
+            </dependency>
+
+            <!--Mysql-->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.driver.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

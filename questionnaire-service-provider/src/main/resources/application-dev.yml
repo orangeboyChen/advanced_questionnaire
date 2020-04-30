@@ -1,0 +1,25 @@
+server:
+  port: 8888
+
+spring:
+  redis:
+    host: localhost
+  datasource:
+    url: jdbc:mysql://nowcent-database.mysql.rds.aliyuncs.com:3306/wxapp_ques_test?useUnicode=true&characterEncoding=UTF8&serverTimeZone=GMT%2B8
+    username: wx_ques
+    password: wx-quesWX
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+
+
+elasticsearch:
+  url: 120.79.54.26
+  port: 9200
+
+
+mybatis-plus:
+  type-aliases-package: com.wxapp.questionnaire.pojo
+  mapper-locations: classpath:mapper/*Mapper.xml
+
+
