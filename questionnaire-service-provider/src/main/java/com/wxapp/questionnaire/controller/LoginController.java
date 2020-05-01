@@ -1,6 +1,7 @@
 package com.wxapp.questionnaire.controller;
 
 
+import com.wxapp.questionnaire.pojo.User;
 import com.wxapp.questionnaire.service.LoginService;
 import com.wxapp.questionnaire.utils.ApiUtils;
 import com.wxapp.questionnaire.vo.ApiVO;
@@ -87,9 +88,18 @@ public class LoginController {
             case 0:
                 String responseEntityString = EntityUtils.toString(response.getEntity());
                 Pair<String, String> openidAndSecretKey = loginService.getOpenidAndSessionKey(responseEntityString);
-                session.setAttribute("openid", openidAndSecretKey.getKey());
-                session.setAttribute("secret_key", openidAndSecretKey.getValue());
-                return ApiUtils.success(new LoginVO(session.getId()));
+
+                String openid = openidAndSecretKey.getKey();
+                String secretKey = openidAndSecretKey.getValue();
+
+                //存Session Todo:后期考虑存redis
+                session.setAttribute("openid", openid);
+                session.setAttribute("secret_key", secretKey);
+
+                User user = loginService.getUser(openid);
+                return ApiUtils.success(new LoginVO(session.getId(), user != null));
+
+
             default:
                 return ApiUtils.error(404, "未知错误");
         }

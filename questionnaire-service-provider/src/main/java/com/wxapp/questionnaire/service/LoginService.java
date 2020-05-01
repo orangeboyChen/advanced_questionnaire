@@ -1,22 +1,25 @@
 package com.wxapp.questionnaire.service;
 
-import com.alibaba.fastjson.JSONObject;
+import com.wxapp.questionnaire.pojo.User;
 import javafx.util.Pair;
-import org.springframework.stereotype.Service;
 
 /**
  * @author orangeboy
- * 登录时的业务逻辑
+ * 登录业务逻辑抽象类
  */
-@Service
-public class LoginService {
+public interface LoginService {
+    /**
+     * 通过微信的返回值获得openid和session_key
+     * @param response 微信服务器返回值
+     * @return openid和session_key组成的Pair
+     */
+    public Pair<String, String> getOpenidAndSessionKey(String response);
 
-    public Pair<String, String> getOpenidAndSessionKey(String response){
-        //解析数据
-        JSONObject jsonObject = JSONObject.parseObject(response);
-        String openid = jsonObject.getString("openid");
-        String sessionKey = jsonObject.getString("session_key");
-        return new Pair<>(openid, sessionKey);
-    }
 
+    /**
+     * 通过openid返回一个User对象，没有则新建一个
+     * @param openid openid
+     * @return 用户
+     */
+    public User getUser(String openid);
 }

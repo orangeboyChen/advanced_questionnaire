@@ -11,4 +11,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class LoginVO {
     private String sessionId;
+    private Boolean isNew;
 }

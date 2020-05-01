@@ -11,6 +11,11 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 
+  elasticsearch:
+    rest:
+      uris: 120.79.54.26:9200
+
+
 
 
 elasticsearch:

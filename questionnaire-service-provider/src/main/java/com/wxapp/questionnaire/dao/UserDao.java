@@ -10,7 +10,14 @@ import org.springframework.stereotype.Repository;
  * UserMapper类
  */
 @Mapper
+@Repository
 public interface UserDao extends BaseMapper<User> {
 
-    public User getUser();
+    /**
+     * 通过openid获得User
+     * @param openid openid
+     * @return User对象
+     */
+    public User queryUserByOpenid(String openid);
+
 }

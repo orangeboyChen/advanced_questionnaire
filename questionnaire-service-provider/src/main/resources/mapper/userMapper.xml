@@ -6,7 +6,7 @@
 <mapper namespace="com.wxapp.questionnaire.dao.UserDao">
 
     <select id="getUser" resultType="User">
-        select * from `User`
+        select * from `User` where `openid` = #{openid}
     </select>
 
 </mapper>

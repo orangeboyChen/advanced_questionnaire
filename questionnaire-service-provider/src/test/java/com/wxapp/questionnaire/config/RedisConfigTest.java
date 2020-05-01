@@ -38,14 +38,14 @@ class RedisConfigTest {
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 
 //        TermQueryBuilder termQueryBuilder = QueryBuilders.termQuery("test.keyword", "这是一个测试2");
-        MatchQueryBuilder matchPhraseQueryBuilder = QueryBuilders.matchQuery("text", "这是");
-        searchSourceBuilder.query(matchPhraseQueryBuilder);
-        searchSourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS));
-
-        searchRequest.source(searchSourceBuilder);
-
-        SearchResponse searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
-        System.out.println(searchResponse);
+//        MatchQueryBuilder matchPhraseQueryBuilder = QueryBuilders.matchQuery("text", "这是");
+//        searchSourceBuilder.query(matchPhraseQueryBuilder);
+//        searchSourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS));
+//
+//        searchRequest.source(searchSourceBuilder);
+//
+//        SearchResponse searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
+//        System.out.println(searchResponse);
 
     }
 
