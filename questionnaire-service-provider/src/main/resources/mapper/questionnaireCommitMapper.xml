@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.wxapp.questionnaire.dao.QuestionnaireCommitDao">
+
+    <insert id="commit">
+        insert into `wxapp_ques_test`.`questionnaire_commit`(`id`, `questionnaire_id`, `user_id`, `data`, `create_time`)
+        values (replace(UUID(), '-', ''), #{commit.questionnaireId}, #{commit.userId}, #{commit.data}, current_date)
+    </insert>
+
+    <select id="getCommit">
+        select `data`, `create_time` from `wxapp_ques_test`.`questionnaire_commit`
+        where questionnaire_id = #{questionnaireId}
+    </select>
+
+
+
+
+
+
+</mapper>

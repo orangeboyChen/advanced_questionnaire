@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.wxapp.questionnaire.dao.QuestionnaireDetailDao">
+    <insert id="create">
+        insert into `wxapp_ques_test`.`questionnaire_detail`(`questionnaire_id`, `user_id`, `data`)
+        values (#{detail.questionnaireId}, #{detail.userId}, #{detail.data})
+    </insert>
+
+    <select id="getDetail">
+        select * from `wxapp_ques_test`.`questionnaire_detail`
+        where `questionnaire_id` = #{questionnaireId}
+    </select>
+
+</mapper>

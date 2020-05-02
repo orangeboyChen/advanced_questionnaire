@@ -3,7 +3,8 @@ server:
 
 spring:
   redis:
-    host: localhost
+    host: 120.79.54.26
+    password: 123456
   datasource:
     url: jdbc:mysql://nowcent-database.mysql.rds.aliyuncs.com:3306/wxapp_ques_test?useUnicode=true&characterEncoding=UTF8&serverTimeZone=GMT%2B8
     username: wx_ques
@@ -14,9 +15,6 @@ spring:
   elasticsearch:
     rest:
       uris: 120.79.54.26:9200
-
-
-
 
 elasticsearch:
   url: 120.79.54.26
@@ -33,6 +31,8 @@ wx:
   appSecret: 0
   login:
     url: https://api.weixin.qq.com/sns/jscode2session
+
+
 
 
 

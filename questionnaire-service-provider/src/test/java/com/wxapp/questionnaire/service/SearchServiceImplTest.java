@@ -46,7 +46,5 @@ class SearchServiceImplTest {
 //        Page<Object> wx = elasticsearchUtils.search(matchAllQueryBuilder, Object.class, "test1", 0, 5);
 //
 //        wx.forEach(System.out::print);
-        QuestionnaireBasic save = questionnaireBasicDao.save(new QuestionnaireBasic(null, "2", "3", "4", "5", "6", new Date(System.currentTimeMillis())));
-        System.out.println(save.toString());
     }
 }

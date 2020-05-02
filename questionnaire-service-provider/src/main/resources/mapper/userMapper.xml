@@ -5,8 +5,22 @@
 
 <mapper namespace="com.wxapp.questionnaire.dao.UserDao">
 
-    <select id="getUser" resultType="User">
-        select * from `User` where `openid` = #{openid}
+    <select id="queryUserByOpenid" resultType="User">
+        select u.*, s.`score`, u.user_nickname as nickname
+        from `user` u
+        inner join `user_score` s on s.`user_id` = u.`user_id` and u.`openid` = #{openid}
     </select>
+
+    <insert id="insertUser">
+        insert into `user`(`user_id`, `user_nickname`, `gender`, `birthday`, `update_time`, `create_time`, `openid`, `avatar_url`)
+        values (#{user.userId}, ${user.nickName}, #{user.gender}, #{user.birthday}, current_date ,current_date , ${user.openid}, ${user.avatarUrl});
+    </insert>
+
+    <insert id="insertUserScore">
+        insert into `user_score`(`user_id`, `score`)
+        values (#{user.userId}, #{score})
+    </insert>
+
+
 
 </mapper>

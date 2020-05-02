@@ -12,6 +12,10 @@ public class ApiUtils {
         return new ApiVO<>(200, "Success request", data);
     }
 
+    public static ApiVO<String> success(){
+        return new ApiVO<>(200, "Success request", null);
+    }
+
     public static ApiVO<String> internalServerError(){
         return new ApiVO<>(500, null, null);
     }

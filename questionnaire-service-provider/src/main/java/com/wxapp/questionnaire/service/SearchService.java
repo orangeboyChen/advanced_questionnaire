@@ -27,18 +27,4 @@ public interface SearchService {
      * @return 基本问卷
      */
     public Page<QuestionnaireBasic> queryByType(String keyword, int from, int size);
-
-    /**
-     * 添加搜索数据
-     * @param questionnaireBasic 基本问卷
-     * @return 添加成功后问卷的uuid
-     */
-    public QuestionnaireBasic insert(QuestionnaireBasic questionnaireBasic);
-
-    /**
-     * 删除基本问卷
-     * @param questionnaireBasic 要删除的基本问卷
-     * @return 是否删除成功
-     */
-    public boolean delete(QuestionnaireBasic questionnaireBasic);
 }
