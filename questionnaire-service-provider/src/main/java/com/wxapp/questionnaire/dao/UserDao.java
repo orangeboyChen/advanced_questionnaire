@@ -25,13 +25,20 @@ public interface UserDao extends BaseMapper<User> {
      * 添加用户
      * @param user 用户对象
      */
-    public void insertUser(User user);
+    public void insertUser(@Param("user") User user);
 
     /**
      * 添加用户分数
      * @param user 用户对象
      * @param score 用户分数
      */
-    public void insertUserScore(User user, int score);
+    public void insertUserScore(@Param("user") User user, int score);
+
+    /**
+     * 更新用户信息
+     * @param user 用户对象
+     * @return 更新成功的条数
+     */
+    public int updateUser(@Param("user") User user);
 
 }

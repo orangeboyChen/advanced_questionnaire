@@ -1,10 +1,11 @@
 server:
-  port: 8888
+  port: 9898
 
 spring:
   redis:
     host: 120.79.54.26
     password: 123456
+    port: 6379
   datasource:
     url: jdbc:mysql://nowcent-database.mysql.rds.aliyuncs.com:3306/wxapp_ques_test?useUnicode=true&characterEncoding=UTF8&serverTimeZone=GMT%2B8
     username: wx_ques
@@ -14,11 +15,11 @@ spring:
 
   elasticsearch:
     rest:
-      uris: 120.79.54.26:9200
+      uris: elasticsearch.wxques.nowcent.cn
 
 elasticsearch:
-  url: 120.79.54.26
-  port: 9200
+  url: elasticsearch.wxques.nowcent.cn
+  port: 80
 
 
 mybatis-plus:
@@ -27,8 +28,8 @@ mybatis-plus:
 
 
 wx:
-  appId: 0
-  appSecret: 0
+  appId: wx8747fa1dbc30f5c4
+  appSecret: 323f922e8f460883a2c170a01f1094fe
   login:
     url: https://api.weixin.qq.com/sns/jscode2session
 

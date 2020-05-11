@@ -35,7 +35,7 @@ public class UserController {
             return ApiUtils.error(403, "该用户未登录");
         }
 
-        User user = userService.queryUser(openid);
+        User user = userService.queryUserByOpenid(openid);
 
         if(user == null){
             return ApiUtils.error(403, "未找到该用户");

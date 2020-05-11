@@ -1,5 +1,6 @@
 package com.wxapp.questionnaire.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.wxapp.questionnaire.pojo.User;
 import javafx.util.Pair;
 
@@ -10,10 +11,10 @@ import javafx.util.Pair;
 public interface LoginService {
     /**
      * 通过微信的返回值获得openid和session_key
-     * @param response 微信服务器返回值
+     * @param jsonObject 微信服务器返回值的JSON
      * @return openid和session_key组成的Pair
      */
-    public Pair<String, String> getOpenidAndSessionKey(String response);
+    public Pair<String, String> getOpenidAndSessionKey(JSONObject jsonObject);
 
 
     /**

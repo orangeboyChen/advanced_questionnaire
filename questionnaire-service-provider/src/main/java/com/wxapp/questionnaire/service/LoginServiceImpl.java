@@ -18,9 +18,8 @@ public class LoginServiceImpl implements LoginService{
     private UserDao userDao;
     
     @Override
-    public Pair<String, String> getOpenidAndSessionKey(String response){
+    public Pair<String, String> getOpenidAndSessionKey(JSONObject jsonObject){
         //解析数据
-        JSONObject jsonObject = JSONObject.parseObject(response);
         String openid = jsonObject.getString("openid");
         String sessionKey = jsonObject.getString("session_key");
         return new Pair<>(openid, sessionKey);

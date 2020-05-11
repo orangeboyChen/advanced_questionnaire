@@ -13,7 +13,16 @@ public interface UserService {
      * @param openid openid
      * @return 用户类对象
      */
-    public User queryUser(String openid);
+    public User queryUserByOpenid(String openid);
+
+    /**
+     * 更新用户信息
+     * @param user 用户对象
+     * @return 是否更新成功
+     */
+    public int updateUser(User user);
+
+
 
     /**
      * 添加用户

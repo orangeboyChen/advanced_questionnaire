@@ -12,14 +12,20 @@
     </select>
 
     <insert id="insertUser">
-        insert into `user`(`user_id`, `user_nickname`, `gender`, `birthday`, `update_time`, `create_time`, `openid`, `avatar_url`)
-        values (#{user.userId}, ${user.nickName}, #{user.gender}, #{user.birthday}, current_date ,current_date , ${user.openid}, ${user.avatarUrl});
+        insert into `user`(`user_id`, `user_nickname`, `gender`, `update_time`, `create_time`, `openid`, `avatar_url`)
+        values (#{user.userId}, #{user.nickName}, #{user.gender}, current_time ,current_time , #{user.openid}, #{user.avatarUrl});
     </insert>
 
     <insert id="insertUserScore">
         insert into `user_score`(`user_id`, `score`)
         values (#{user.userId}, #{score})
     </insert>
+
+    <update id="updateUser">
+        update `user`
+        set `avatar_url` = #{user.avatarUrl}, `gender` = #{user.gender}, `user_nickname` = #{user.nickName}, `openid` = #{user.openid}, `update_time` = current_time
+        where `user_id` = #{user.userId}
+    </update>
 
 
 

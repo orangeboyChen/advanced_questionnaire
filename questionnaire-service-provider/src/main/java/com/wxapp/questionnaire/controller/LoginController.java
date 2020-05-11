@@ -1,8 +1,11 @@
 package com.wxapp.questionnaire.controller;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.wxapp.questionnaire.pojo.User;
 import com.wxapp.questionnaire.service.LoginService;
+import com.wxapp.questionnaire.service.UserService;
 import com.wxapp.questionnaire.utils.ApiUtils;
 import com.wxapp.questionnaire.vo.ApiVO;
 import com.wxapp.questionnaire.vo.login.LoginVO;
@@ -16,13 +19,16 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -47,6 +53,9 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
+    @Autowired
+    private UserService userService;
+
     //Todo: 把下面的放在配置文件里
     /**
      * 微信登录链接构造
@@ -57,9 +66,13 @@ public class LoginController {
     private final String URI_GRANT_TYPE = "grant_type";
     private final String GRANT_TYPE = "authorization_code";
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @GetMapping("")
     @ApiOperation("登录")
-    public ApiVO login(@ApiParam("wx.login()获得的code") String code, HttpSession session) throws IOException, URISyntaxException {
+    public ApiVO login(@ApiParam("wx.login()获得的code") @RequestParam String code, @ApiIgnore HttpSession session) throws IOException, URISyntaxException {
+        logger.info("code=>" + code);
+
         //创建URL
         URIBuilder urlBuilder = new URIBuilder(wxLoginUrl);
         String url = urlBuilder
@@ -77,7 +90,10 @@ public class LoginController {
         HttpResponse response = client.execute(httpGet);
 
         //解析数据
-        int status = response.getStatusLine().getStatusCode();
+        JSONObject responseObject = JSON.parseObject(EntityUtils.toString(response.getEntity()));
+        int status = responseObject.getIntValue("errcode");
+        System.out.println(responseObject);
+        System.out.println(session.getId());
         switch (status){
             case 40029:
                 return ApiUtils.error(40029, "Code无效");
@@ -86,8 +102,7 @@ public class LoginController {
             case 45011:
                 return ApiUtils.error(45011, "频率限制");
             case 0:
-                String responseEntityString = EntityUtils.toString(response.getEntity());
-                Pair<String, String> openidAndSecretKey = loginService.getOpenidAndSessionKey(responseEntityString);
+                Pair<String, String> openidAndSecretKey = loginService.getOpenidAndSessionKey(responseObject);
 
                 String openid = openidAndSecretKey.getKey();
                 String secretKey = openidAndSecretKey.getValue();
@@ -97,11 +112,41 @@ public class LoginController {
                 session.setAttribute("secret_key", secretKey);
 
                 User user = loginService.getUser(openid);
-                return ApiUtils.success(new LoginVO(session.getId(), user != null));
+                return ApiUtils.success(new LoginVO(session.getId(), user == null));
 
 
             default:
                 return ApiUtils.error(404, "未知错误");
         }
     }
+
+    @PostMapping("/userInfo")
+    @ApiOperation("保存用户详情信息")
+    public ApiVO getUserInfo(@ApiParam("头像地址") @NotNull String avatarUrl,
+                             @ApiParam("性别") @NotNull Integer gender,
+                             @ApiParam("昵称") @NotNull String nickName,
+                             @ApiIgnore HttpSession httpSession){
+        String openid = (String) httpSession.getAttribute("openid");
+        System.out.println(httpSession.getId());
+        if(StringUtils.isEmpty(openid)){
+            return ApiUtils.error(403, "用户未登录");
+        }
+        System.out.println(nickName);
+        System.out.println(gender);
+        User user = new User(avatarUrl, nickName, openid, gender);
+        User expiredUser = userService.queryUserByOpenid(openid);
+
+        if(expiredUser != null){
+            user.setUserId(expiredUser.getUserId());
+            userService.updateUser(user);
+        }
+        else{
+            userService.insertUser(user);
+        }
+
+        return ApiUtils.success();
+
+
+    }
+
 }

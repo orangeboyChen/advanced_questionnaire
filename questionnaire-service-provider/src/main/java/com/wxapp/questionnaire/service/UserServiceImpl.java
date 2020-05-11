@@ -5,6 +5,7 @@ import com.wxapp.questionnaire.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sun.nio.cs.US_ASCII;
 
 import java.util.UUID;
 
@@ -20,8 +21,13 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
-    public User queryUser(String openid) {
+    public User queryUserByOpenid(String openid) {
         return userDao.queryUserByOpenid(openid);
+    }
+
+    @Override
+    public int updateUser(User user) {
+        return userDao.updateUser(user);
     }
 
     @Override
