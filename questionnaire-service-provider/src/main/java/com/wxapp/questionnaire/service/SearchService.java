@@ -13,18 +13,18 @@ public interface SearchService {
     /**
      * 通过问卷标题搜索问卷
      * @param keyword 关键词
-     * @param from 分页，从第几条
+     * @param page 第几页
      * @param size 分页大小
      * @return 基本问卷
      */
-    public Page<QuestionnaireBasic> queryByTitle(String keyword, int from, int size);
+    public Page<QuestionnaireBasic> queryByTitle(String keyword, int page, int size);
 
     /**
      * 通过问卷类型搜索问卷
      * @param keyword 关键词
-     * @param from 分页，从第几条
+     * @param page 第几页
      * @param size 分页大小
      * @return 基本问卷
      */
-    public Page<QuestionnaireBasic> queryByType(String keyword, int from, int size);
+    public Page<QuestionnaireBasic> queryByType(String keyword, int page, int size);
 }

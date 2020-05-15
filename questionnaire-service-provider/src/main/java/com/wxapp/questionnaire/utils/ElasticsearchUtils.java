@@ -28,33 +28,33 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class ElasticsearchUtils {
 
-    @Autowired
-    private RestHighLevelClient restHighLevelClient;
-
-
-    public <T> Page<T> search(QueryBuilder queryBuilder, Class<T> resultType, String index, int from, int size) {
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        SearchRequest searchRequest = new SearchRequest(index);
-
-        searchSourceBuilder.query(queryBuilder);
-        searchSourceBuilder.from(from);
-        searchSourceBuilder.size(size);
-
-        searchRequest.source(searchSourceBuilder);
-        searchSourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS));
-
-        SearchResponse response = null;
-        try {
-            response = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        ArrayList<T> list = new ArrayList<>();
-        assert response != null;
-        for (SearchHit field : response.getHits().getHits()) {
-            list.add(JSON.parseObject(field.getSourceAsString(), resultType));
-        }
-        return new PageImpl<>(list);
-    }
+//    @Autowired
+//    private RestHighLevelClient restHighLevelClient;
+//
+//
+//    public <T> Page<T> search(QueryBuilder queryBuilder, Class<T> resultType, String index, int from, int size) {
+//        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+//        SearchRequest searchRequest = new SearchRequest(index);
+//
+//        searchSourceBuilder.query(queryBuilder);
+//        searchSourceBuilder.from(from);
+//        searchSourceBuilder.size(size);
+//
+//        searchRequest.source(searchSourceBuilder);
+//        searchSourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS));
+//
+//        SearchResponse response = null;
+//        try {
+//            response = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        ArrayList<T> list = new ArrayList<>();
+//        assert response != null;
+//        for (SearchHit field : response.getHits().getHits()) {
+//            list.add(JSON.parseObject(field.getSourceAsString(), resultType));
+//        }
+//        return new PageImpl<>(list);
+//    }
 }

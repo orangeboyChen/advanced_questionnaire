@@ -19,6 +19,7 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +29,10 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author orangeboy
@@ -102,10 +104,10 @@ public class LoginController {
             case 45011:
                 return ApiUtils.error(45011, "频率限制");
             case 0:
-                Pair<String, String> openidAndSecretKey = loginService.getOpenidAndSessionKey(responseObject);
+                Map<String, String> openidAndSecretKey = loginService.getOpenidAndSessionKey(responseObject);
 
-                String openid = openidAndSecretKey.getKey();
-                String secretKey = openidAndSecretKey.getValue();
+                String openid = openidAndSecretKey.get("openid");
+                String secretKey = openidAndSecretKey.get("secret_key");
 
                 //存Session Todo:后期考虑存redis
                 session.setAttribute("openid", openid);

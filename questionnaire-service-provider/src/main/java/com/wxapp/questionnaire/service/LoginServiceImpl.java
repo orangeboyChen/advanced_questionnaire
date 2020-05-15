@@ -3,9 +3,11 @@ package com.wxapp.questionnaire.service;
 import com.alibaba.fastjson.JSONObject;
 import com.wxapp.questionnaire.dao.UserDao;
 import com.wxapp.questionnaire.pojo.User;
-import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.*;
+
 
 /**
  * @author orangeboy
@@ -16,13 +18,16 @@ public class LoginServiceImpl implements LoginService{
 
     @Autowired
     private UserDao userDao;
-    
+
     @Override
-    public Pair<String, String> getOpenidAndSessionKey(JSONObject jsonObject){
+    public Map<String, String> getOpenidAndSessionKey(JSONObject jsonObject){
         //解析数据
         String openid = jsonObject.getString("openid");
         String sessionKey = jsonObject.getString("session_key");
-        return new Pair<>(openid, sessionKey);
+        Map<String, String> map = new HashMap<>(1);
+        map.put("openid", openid);
+        map.put("session_key", sessionKey);
+        return map;
     }
 
     @Override

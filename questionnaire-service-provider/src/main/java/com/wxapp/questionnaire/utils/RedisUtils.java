@@ -2,11 +2,11 @@ package com.wxapp.questionnaire.utils;
 
 import com.wxapp.questionnaire.pojo.QuestionnaireBasic;
 import io.swagger.models.auth.In;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.NotNull;
 import java.util.concurrent.TimeUnit;
 
 /**

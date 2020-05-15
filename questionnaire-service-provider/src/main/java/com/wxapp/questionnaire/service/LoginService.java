@@ -2,7 +2,8 @@ package com.wxapp.questionnaire.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.wxapp.questionnaire.pojo.User;
-import javafx.util.Pair;
+
+import java.util.Map;
 
 /**
  * @author orangeboy
@@ -14,7 +15,7 @@ public interface LoginService {
      * @param jsonObject 微信服务器返回值的JSON
      * @return openid和session_key组成的Pair
      */
-    public Pair<String, String> getOpenidAndSessionKey(JSONObject jsonObject);
+    public Map<String, String> getOpenidAndSessionKey(JSONObject jsonObject);
 
 
     /**

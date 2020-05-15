@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author orangeboy
@@ -33,8 +34,6 @@ public class QuestionnaireServiceImpl implements QuestionnaireService{
     @Autowired
     private QuestionnaireBasicDao questionnaireBasicDao;
 
-    @Autowired
-    private ElasticsearchUtils elasticsearchUtils;
     @Override
     public void commit(QuestionnaireCommit questionnaireCommit) {
         questionnaireCommitDao.commit(questionnaireCommit);
@@ -62,11 +61,12 @@ public class QuestionnaireServiceImpl implements QuestionnaireService{
 
     @Override
     public QuestionnaireDetail getDetail(String questionnaireId) {
-        MatchQueryBuilder matchQueryBuilder = QueryBuilders.matchQuery("questionnaire_id", questionnaireId);
-        QuestionnaireBasic basic = elasticsearchUtils.search(matchQueryBuilder, QuestionnaireBasic.class, "wx", 0, 1).getContent().get(0);
-        QuestionnaireDetail detail = questionnaireDetailDao.getDetail(questionnaireId);
-        detail.setBasic(basic);
-        return detail;
+        Optional<QuestionnaireBasic> questionnaireBasicOptional = questionnaireBasicDao.findById(questionnaireId);
+        if(questionnaireBasicOptional.isPresent()){
+            QuestionnaireBasic questionnaireBasic = questionnaireBasicOptional.get();
+            return questionnaireDetailDao.getDetail(questionnaireId);
+        }
+        return null;
     }
 
 }

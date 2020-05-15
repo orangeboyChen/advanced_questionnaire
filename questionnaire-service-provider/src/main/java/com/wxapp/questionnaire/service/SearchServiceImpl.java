@@ -25,23 +25,19 @@ public class SearchServiceImpl implements SearchService{
     @Autowired
     private QuestionnaireBasicDao questionnaireBasicDao;
 
-    @Autowired
-    private ElasticsearchUtils elasticsearchUtils;
 
     @Autowired
     private RedisUtils redisUtils;
 
     @Override
-    public Page<QuestionnaireBasic> queryByTitle(String keyword, int from, int size) {
-        MatchQueryBuilder matchQueryBuilder = QueryBuilders.matchQuery("title", keyword);
-        Page<QuestionnaireBasic> result = elasticsearchUtils.search(matchQueryBuilder, QuestionnaireBasic.class, "wx", from, size);
+    public Page<QuestionnaireBasic> queryByTitle(String keyword, int page, int size) {
+        Page<QuestionnaireBasic> result = questionnaireBasicDao.findByTitle(keyword, PageRequest.of(page, size));
         return setViewAndLike(result);
     }
 
     @Override
-    public Page<QuestionnaireBasic> queryByType(String keyword, int from, int size) {
-        MatchQueryBuilder matchQueryBuilder = QueryBuilders.matchQuery("type", keyword);
-        Page<QuestionnaireBasic> result = elasticsearchUtils.search(matchQueryBuilder, QuestionnaireBasic.class, "wx", from, size);
+    public Page<QuestionnaireBasic> queryByType(String keyword, int page, int size) {
+        Page<QuestionnaireBasic> result = questionnaireBasicDao.findByTypeName(keyword, PageRequest.of(page,size));
         return setViewAndLike(result);
     }
 

@@ -31,20 +31,20 @@ public class SearchController {
     @GetMapping("/basic")
     public ApiVO<Page<QuestionnaireBasic>> searchByTitle(
             @RequestParam("keyword") @ApiParam("关键词") String keyword,
-            @RequestParam("from") @ApiParam("分页，从...") int from,
+            @RequestParam("page") @ApiParam("分页页数") int page,
             @RequestParam("size") @ApiParam("分页大小") int size){
 
-        return ApiUtils.success(searchService.queryByTitle(keyword, from, size));
+        return ApiUtils.success(searchService.queryByTitle(keyword, page, size));
     }
 
     @ApiOperation("通过类型名称搜索问卷")
     @GetMapping("/type")
     public ApiVO<Page<QuestionnaireBasic>> searchByType(
             @RequestParam("keyword") @ApiParam("关键词") String keyword,
-            @RequestParam("from") @ApiParam("分页，从...") int from,
+            @RequestParam("page") @ApiParam("分页页数") int page,
             @RequestParam("size") @ApiParam("分页大小") int size){
 
-        return ApiUtils.success(searchService.queryByType(keyword, from, size));
+        return ApiUtils.success(searchService.queryByType(keyword, page, size));
     }
 
 
